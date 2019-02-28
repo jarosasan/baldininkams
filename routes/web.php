@@ -11,10 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', 'HomeController@index')->name('admin');
+//Route::get('admin/categories/create', 'CategoryController@create')->name('cat_create');
+//Route::post('admin/categories', 'CategoryController@store')->name('category_store');
+//Route::delete('admin/categories/{id}', 'CategoryController@destroy')->name('category_delete');

@@ -27,7 +27,7 @@ class CreateAdvertsTable extends Migration
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();
             $table->integer('thickness')->nullable();
-            $table->string('brand')->nullable();
+            $table->unsignedInteger('brand')->nullable();
             $table->string('code')->nullable();
             $table->string('name')->nullable();
             $table->string('vage')->nullable();
@@ -50,7 +50,7 @@ class CreateAdvertsTable extends Migration
     public function down()
     {
         Schema::table('adverts', function (Blueprint $table) {
-            $table->dropForeign(['user_id', 'city_id', 'category_id']);
+            $table->dropForeign(['user_id', 'category_id', 'city_id']);
         });
         Schema::dropIfExists('adverts');
     }
