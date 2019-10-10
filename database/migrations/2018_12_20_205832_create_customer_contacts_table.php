@@ -24,8 +24,9 @@ class CreateCustomerContactsTable extends Migration
             $table->string('vat_number')->nullable();
             $table->integer('address')->nullable();
             $table->string('bill_email')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->onUpdate('cascade')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -37,9 +38,9 @@ class CreateCustomerContactsTable extends Migration
      */
     public function down()
     {
-        Schema::table('customer_contacts', function (Blueprint $table) {
-            $table->dropForeign(['user_id', 'city_id']);
-        });
+//        Schema::table('customer_contacts', function (Blueprint $table) {
+//            $table->dropForeign(['user_id', 'city_id']);
+//        });
         Schema::dropIfExists('customer_contacts');
     }
 }

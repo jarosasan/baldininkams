@@ -11,13 +11,14 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
-Route::get('/admin', 'HomeController@index')->name('admin');
-//Route::get('admin/categories/create', 'CategoryController@create')->name('cat_create');
-//Route::post('admin/categories', 'CategoryController@store')->name('category_store');
-//Route::delete('admin/categories/{id}', 'CategoryController@destroy')->name('category_delete');
+Route::view('/admin/{path?}', 'admin.app')
+    ->where('path', '.*')
+    ->name('react');
+
+Route::resource('/skelbimai', 'AdvertsController')->middleware('auth')->except(['index', 'show']);
+Route::resource('/skelbimai', 'AdvertsController')->only(['index', 'show']);
+

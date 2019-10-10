@@ -1,21 +1,31 @@
 import axios from 'axios'
-import categories from './mockCategories'
+import { SubmissionError } from 'redux-form'
+
+axios.defaults.baseURL = 'http://baldininkams.test/api/admin'
 
 export const fetchCategories =  async() => {
     try{
-        const response =  await axios.get('http://baldininkams.test/api/admin/categories')
-        console.log(response)
-        return response.data
+        const response =  await axios.get('/categories')
+        return response.data.data
     } catch(error) {
-        console.log(error)
+        console.log('api error- ', error)
     }
 }
 
-export const createCategory = async (category) => {
+export const getCategory =  async( id ) => {
+    console.log('api get category',id)
     try{
-        const response =  await axios.post('http://baldininkams.test/api/admin/categories', category)
-        console.log(response)
-        return response.data
+        const response =  await axios.get(`/categories/${id}`)
+        return response.data.data
+    } catch(error) {
+        console.log('api error- ', error)
+    }
+}
+
+export const createCategory = async (cat) => {
+    try{
+        const response =  await axios.post('/categories', cat)
+        return response.data.data
     } catch(error) {
         console.log(error)
     }
@@ -24,13 +34,45 @@ export const createCategory = async (category) => {
 
 export const deleteCategory = async (id) => {
     console.log('api',id)
-    const {data} =  await axios.delete('http://baldininkams.test/api/admin/categories/'+id)
+    const {data} =  await axios.delete(`/categories/${id}`)
     console.log('res',data)
     return data
 }
 
-// export const fetchCategories = async () => {
-//     return new Promise((resolve, reject) => {
-//         resolve(categories)
-//     })
-// }
+export const updateCategory = async (id, category) => {
+    // try{
+    //     const response =  await axios.patch(`/categories/${id}`, category)
+    //     console.log('status', response)
+    //     return response
+    // } catch(error) {
+    //     console.log('error is: ', error.response.data)
+    //     throw new SubmissionError({
+    //         parent_id: "!!!!!!",
+    //         _error: "Submission error!"
+    //     })
+    // }
+    await axios.patch(`/categories/${id}`, category)
+        .then(response)
+        // .catch(error => {
+        //     // how you pass server-side validation errors back is up to you
+        //     if (error.validationErrors) {
+        //         throw new SubmissionError(error.validationErrors)
+        //     } else {
+        //         // what you do about other communication errors is up to you
+        //     }
+        // })
+
+        .catch(error => {
+
+            throw new SubmissionError({
+                password: 'Wrong password',
+                error: 'Login failed!',
+            });
+        });
+
+
+
+}
+
+
+

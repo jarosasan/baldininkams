@@ -6,7 +6,7 @@ const SidebarAdmin = () => {
         <div className='ui inverted vertical pointing menu'>
             <NavLink
                 exact
-                to='/admin'
+                to='/admin/'
                 className='item'
                 activeclass='active'
             >

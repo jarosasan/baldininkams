@@ -11,7 +11,38 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.react('resources/js/main.js', 'public/js')
+mix.react('resources/js/main.js', 'public/js/main')
     .react('resources/js/index.js', 'public/js/admin')
-   .sass('resources/sass/app.scss', 'public/css')
-   .sass('resources/sass/admin.scss', 'public/css');
+   .sass('resources/sass/app.scss', 'public/css/main')
+    .copy('node_modules/semantic-ui-css/semantic.min.css','public/css/main/semantic.min.css')
+   .sass('resources/sass/admin.scss', 'public/css/admin');
+
+// mix.browserSync('baldininkams.test');
+
+mix.webpackConfig({
+    resolve: {
+        extensions: ['.js', '.jsx'],
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(jsx|js)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-react'
+                        ],
+                        plugins: [
+                            '@babel/plugin-syntax-dynamic-import',
+                            '@babel/plugin-proposal-class-properties'
+                        ]
+                    }
+                }
+            },
+        ]
+    },
+
+    });

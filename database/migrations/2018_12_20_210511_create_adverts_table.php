@@ -16,28 +16,22 @@ class CreateAdvertsTable extends Migration
         Schema::create('adverts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->smallInteger('type');
-            $table->smallInteger('active');
+            $table->smallInteger('type')->index();
             $table->text('description')->nullable();
+            $table->text('short_description')->nullable();
+            $table->boolean('img')->default(false);
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('city_id');
-            $table->float('price', 8, 2)->nullable();
-            $table->integer('quantity')->nullable();
-            $table->integer('width')->nullable();
-            $table->integer('height')->nullable();
-            $table->integer('thickness')->nullable();
-            $table->unsignedInteger('brand')->nullable();
-            $table->string('code')->nullable();
-            $table->string('name')->nullable();
-            $table->string('vage')->nullable();
-            $table->string('company_name')->nullable();
-            $table->string('phone')->nullable();
+            $table->integer('price')->nullable();
+            $table->string('currency')->default('EUR');
+            $table->string('phone');
             $table->string('email')->nullable();
             $table->string('web_page')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->onUpdate('cascade')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -49,9 +43,10 @@ class CreateAdvertsTable extends Migration
      */
     public function down()
     {
-        Schema::table('adverts', function (Blueprint $table) {
-            $table->dropForeign(['user_id', 'category_id', 'city_id']);
-        });
+//        Schema::table('adverts', function (Blueprint $table) {
+//            $table->dropForeign(['user_id', 'category_id', 'city_id']);
+//        });
+
         Schema::dropIfExists('adverts');
     }
 }

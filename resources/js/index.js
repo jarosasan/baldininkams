@@ -1,28 +1,27 @@
-require('./bootstrap');
 import React from 'react'
 import ReactDom from 'react-dom'
-import {Route, Switch} from 'react-router'
-import {Provider, ReactReduxContext} from 'react-redux'
-import { ConnectedRouter } from 'connected-react-router'
+import {Route, Switch, Router} from 'react-router-dom'
+import {Provider} from 'react-redux'
 import configureStore, { history } from './configureStore'
+import 'semantic-ui-css/semantic.min.css'
 
 import Layout from './components/layout/index'
-import Dashboard from './containers/adminDashboard/index'
-import Categories from './containers/categories/index'
-
+import Dashboard from './components/adminDashboard/index'
+import Categories from './components/categories/index'
 
 const store = configureStore()
 ReactDom.render(
-   <Provider store={store} context={ReactReduxContext}>
-       <ConnectedRouter history={history} context={ReactReduxContext}>
-           <Layout path='/admin'>
-               <Switch>
+    <Provider store={store}>
+        <Router history={history}>
+            <Layout path='/admin'>
+                <Switch>
                     <Route exact path='/admin' component={Dashboard} />
-                    <Route path='/admin/categories' component={Categories} />
-               </Switch>
-           </Layout>
-       </ConnectedRouter>
-   </Provider>,
+                    <Route path='/admin/categories' component={Categories}>
+                    </Route>
+                </Switch>
+            </Layout>
+        </Router>
+    </Provider>,
 
     document.getElementById('admin')
 );

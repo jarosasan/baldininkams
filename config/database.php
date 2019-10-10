@@ -33,12 +33,12 @@ return [
 
     'connections' => [
 
-        'sqlite' => [
-            'driver' => 'sqlite',
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix' => '',
-            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
-        ],
+//        'sqlite' => [
+//            'driver' => 'sqlite',
+//            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+//            'prefix' => '',
+//            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+//        ],
 
         'mysql' => [
             'driver' => 'mysql',
@@ -49,11 +49,18 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
+            'collation' => 'utf8mb4_general_ci',
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
+        ],
+
+        'sqlite' => [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+
         ],
 
         'pgsql' => [
