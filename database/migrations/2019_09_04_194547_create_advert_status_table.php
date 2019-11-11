@@ -14,10 +14,8 @@ class CreateAdvertStatusTable extends Migration
     public function up()
     {
         Schema::create('advert_status', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedInteger('id')->index();
             $table->string('name');
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 

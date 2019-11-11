@@ -1,6 +1,6 @@
 {
     "/js/admin/index.js": "/js/admin/index.js",
-    "/js/main/main.js": "/js/main/main.js",
+    "/js/main/app.js": "/js/main/app.js",
     "/css/main/app.css": "/css/main/app.css",
     "/css/admin/admin.css": "/css/admin/admin.css",
     "/css/main/semantic.min.css": "/css/main/semantic.min.css"

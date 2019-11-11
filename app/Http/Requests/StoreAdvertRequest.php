@@ -26,15 +26,14 @@ class StoreAdvertRequest extends FormRequest
     {
         return [
             'title'=>'required|min:2|',
-            'type'=>'requred|integer|between:1,2',
+            'type'=>'required|integer|between:1,2',
             'description'=>'string',
-            'user_id'=>'required|exist:users',
-            'category_id'=>'required|exist:categories',
-            'city_id'=>'required|exist:cities',
+            'category_id'=>'required|exists:categories,id',
+            'city_id'=>'required|exists:cities,id',
             'phone'=>'required',
             'email'=>'email',
             'web_page'=>'url',
-            'status_id'=>'required|exist:advert_status'
+            'img.*'=>'file|mimes:jpg,jpeg,bmp,png'
         ];
     }
 

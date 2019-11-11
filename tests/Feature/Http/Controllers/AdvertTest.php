@@ -3,9 +3,6 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\Advert;
-use App\Models\Category;
-use App\Models\City;
-use App\Models\User;
 use Faker\Factory;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -20,11 +17,11 @@ class AdvertTest extends TestCase
 //    use  DatabaseMigrations;
     use RefreshDatabase;
 
-//    public function setUp(): void
-//    {
-//        parent::setUp();
-//        $this->seed();
-//    }
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->seed();
+    }
 
     /**
      * @test
@@ -43,7 +40,6 @@ class AdvertTest extends TestCase
      */
     public function can_return_a_list_of_paginated_adverts()
     {
-        $this->seed();
         $this->withoutExceptionHandling();
         factory(Advert::class, 100)->create()->toArray();
 
@@ -58,15 +54,15 @@ class AdvertTest extends TestCase
     * @test
      */
     public function can_return_single_advert(){
-        $this->seed();
 
         $this->withoutExceptionHandling();
-        $advert = factory(Advert::class)->create();
+        $advert = factory(Advert::class)->create(['status_id'=>2]);
 
         $response = $this->get('skelbimai/'.$advert->id);
-        $response->assertOk();
+
         $response->assertViewIs('adverts.single');
         $response->assertViewHas('advert');
+        $response->assertStatus(200);
 
     }
 

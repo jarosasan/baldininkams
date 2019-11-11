@@ -31,6 +31,7 @@ class CreateAdvertsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('city_id')->references('id')->on('cities')->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamp('active_to')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

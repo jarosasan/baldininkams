@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
 import {Field, reduxForm} from "redux-form";
-import {createCategory, updateCategory} from "../../actions/index";
-import {connect} from "react-redux";
 import * as PropTypes from 'prop-types';
 import {RenderInput, RenderSelect, RenderHiddenInput} from "./formFields";
 import validate from './validate'
-import Button from '../Button'
 
 
 class CategoryForm extends Component {

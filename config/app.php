@@ -167,11 +167,13 @@ return [
          */
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+//        Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
 
         /*
          *  Service Providers...
          */
         App\Providers\RepositoryServiceProvider::class,
+
 
         /*
          * Application Service Providers...

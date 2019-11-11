@@ -35,24 +35,21 @@ class AdvertRepository extends CoreRepository implements AdvertRepositoryInterfa
         return Model::class;
     }
 
-    public function getFullAdvertsList()
-    {
-
-    }
 
     public function getAdvertsPaginatedList($perPage)
     {
-        $columns = ['id', 'title', 'type', 'short_description', 'city_id', 'price', 'created_at', 'img', 'currency'];
+        $columns = ['id', 'title', 'type', 'short_description', 'price', 'created_at', 'img', 'currency', 'city_id'];
         $result = $this
             ->startCondition()
             ->select($columns)
             ->where('status_id', AdvertStatus::ACTIVE)
+            ->with('city')
             ->paginate($perPage);
 
         return $result;
     }
 
-    public function getSingleAdvert ( $id)
+    public function getSingleAdvert ($id)
     {
         $result = $this
             ->startCondition()
@@ -63,13 +60,64 @@ class AdvertRepository extends CoreRepository implements AdvertRepositoryInterfa
         return $result;
     }
 
-//    public function with($relations) {
-//        if (is_string($relations)) $relations = func_get_args();
-//
-//        $this->with = $relations;
-//
-//        return $this;
-//    }
+    public function getUserActiveAdvertsPaginatedList($user, $perPage)
+    {
+        $columns = ['id', 'title', 'type', 'price', 'img', 'currency', 'active_to'];
+        $result = $this
+            ->startCondition()
+            ->select($columns)
+            ->where('user_id', $user)
+            ->where('status_id', AdvertStatus::ACTIVE)
+            ->paginate($perPage);
+        return $result;
+    }
+
+    public function getUserInactiveAdvertsPaginatedList($user, $perPage)
+    {
+        $columns = ['id', 'title', 'type', 'price', 'img', 'currency'];
+        $result = $this
+            ->startCondition()
+            ->select($columns)
+            ->where('user_id', $user)
+            ->where('status_id', AdvertStatus::INACTIVE)
+            ->paginate($perPage);
+
+        return $result;
+    }
 
 
+    public function getAdvertToUpdate($id)
+    {
+        $result = $this
+            ->startCondition()
+            ->where('status_id', AdvertStatus::ACTIVE)
+            ->with('city')
+            ->with('category')
+            ->find($id)
+            ->first();
+
+        return $result;
+
+    }
+
+    public function create($request, $user_id)
+    {
+        $advert = $this->startCondition();
+       $ad = $advert->create($request->except('img', '_token') + ['user_id'=>$user_id]);
+        if($request->hasFile('img')){
+//            $ad->addMediaFromRequest('img')->preservingOriginal()->toMediaCollection('images');
+
+            $fileAdders = $ad
+                ->addMultipleMediaFromRequest(['img'])
+                ->each(function ($fileAdder) {
+                    $fileAdder->toMediaCollection('images');
+                });
+        }
+       return ;
+    }
+
+    public function with($relations)
+    {
+        return $this->model->with($relations);
+    }
 }

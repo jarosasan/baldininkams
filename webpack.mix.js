@@ -11,11 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.react('resources/js/main.js', 'public/js/main')
-    .react('resources/js/index.js', 'public/js/admin')
-   .sass('resources/sass/app.scss', 'public/css/main')
+mix.react('resources/js/app.js', 'public/js/main')
+    .react('resources/js/admin/index.js', 'public/js/admin')
+    .sass('resources/sass/app.scss', 'public/css/main')
     .copy('node_modules/semantic-ui-css/semantic.min.css','public/css/main/semantic.min.css')
-   .sass('resources/sass/admin.scss', 'public/css/admin');
+    .sass('resources/sass/admin.scss', 'public/css/admin');
 
 // mix.browserSync('baldininkams.test');
 
@@ -45,4 +45,4 @@ mix.webpackConfig({
         ]
     },
 
-    });
+});

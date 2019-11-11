@@ -9,7 +9,7 @@
                 <li>{{$advert->type}}</li>
                 <li>{{$advert->short_description}}</li>
                 {{--<li>{{$advert->image}}</li>--}}
-                <li>{{$advert->city}}</li>
+                <li>{{$advert->city->id}}</li>
                 <li>@if($advert->price){{$advert->price}} {{$advert->currency}}@endif</li>
                 <li>{{$advert->created_at}}</li>
             </ul>

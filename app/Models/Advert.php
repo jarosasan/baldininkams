@@ -21,36 +21,32 @@ class Advert extends Model implements HasMedia
      * @var array
      */
     protected $fillable = [
-      'title', 'type', 'description', 'user_id', 'category_id', 'city_id', 'img', 'short_description', 'price', 'currency','phone', 'email',
+      'title', 'type', 'description', 'user_id', 'category_id', 'city_id', 'short_description', 'price', 'currency','phone', 'email',
       'web_page', 'status_id'
     ];
 
 
     public function  user (){
-        $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 
     public function  category (){
-        $this->belongsTo('App\Models\Category', 'category_id');
+        return $this->belongsTo('App\Models\Category', 'category_id');
     }
 
     public function  city (){
-        $this->belongsTo('App\Models\City', 'city_id');
+        return $this->belongsTo('App\Models\City', 'city_id');
     }
 
     public function  status (){
-        $this->belongsTo('App\Models\AdvertStatus');
-    }
-
-    public function  image (){
-        $this->hasMany('App\Models\Image');
+        return $this->belongsTo('App\Models\AdvertStatus');
     }
 
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')
-            ->width(272)
-            ->height(204)
+            ->width(238)
+            ->height(180)
             ->sharpen(10);
 
         $this->addMediaConversion('origin');
@@ -60,7 +56,6 @@ class Advert extends Model implements HasMedia
             ->height(1440)
             ->sharpen(10);
     }
-
 
 
 }

@@ -28,9 +28,8 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin'], function(){
     Route::get('categories/{id}', 'CategoryController@getCategory')->name('getCategory');
 });
 
-Route::middleware('auth:api')->group(function(){
-   Route::resource('skelbimai', 'AdvertsController')->except(['index', 'show']);
-});
-Route::get('skelbimai', 'AdvertsController@index');
-Route::get('skelbimai/{id}', 'AdvertsController@show');
+//Route::middleware('auth:api')->group(function(){
+//   Route::resource('skelbimai', 'UserAdvertsController')->except(['index', 'show']);
+//});
+
 

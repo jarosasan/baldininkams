@@ -9,6 +9,6 @@ class City extends Model
     protected $table = 'cities';
 
     public function  city (){
-        $this->hasMany('App\Models\Advert');
+       return $this->hasMany('App\Models\Advert');
     }
 }

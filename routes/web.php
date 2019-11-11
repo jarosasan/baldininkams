@@ -19,6 +19,20 @@ Route::view('/admin/{path?}', 'admin.app')
     ->where('path', '.*')
     ->name('react');
 
-Route::resource('/skelbimai', 'AdvertsController')->middleware('auth')->except(['index', 'show']);
-Route::resource('/skelbimai', 'AdvertsController')->only(['index', 'show']);
+Route::get('/skelbimai', 'AdvertsController@index')->name('adverts.all');
+Route::get('/skelbimai/{id}', 'AdvertsController@show')->name('adverts.single');
 
+Route::middleware('auth')->group( function(){
+    Route::get('/mano-skelbimai', 'AdvertsController@getUserAdverts')->name('user.adverts');
+    Route::get('/mano-skelbimai/create', 'AdvertsController@create')->name('adverts.create');
+    Route::post('/mano-skelbimai', 'AdvertsController@store')->name('adverts.store');
+    Route::get('/mano-skelbimai/{id}/edit', 'AdvertsController@edit')->name('adverts.edit');
+    Route::patch('/mano-skelbimai/', 'AdvertsController@update')->name('adverts.update');
+    Route::delete('/mano-skelbimai/{id}', 'AdvertsController@destroy')->name('adverts.delete');
+});
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
