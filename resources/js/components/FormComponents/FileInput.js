@@ -10,7 +10,7 @@ class FileInput extends Component {
     }
 
     itemBlock = ()=>{
-        
+
     }
 
     formInputItem = ()=>{
